@@ -6,6 +6,68 @@ Weather Planner는 실시간 날씨 확인부터 활동 추천과 일정 관리�
 
 날씨를 숫자로만 보여주는 데 그치지 않고 맑음, 구름, 비, 눈, 뇌우 등의 상태에 따라 움직이는 배경을 적용하여 현재 기상 상황을 직관적으로 느낄 수 있도록 구현했습니다.
 
+## 배포 주소
+
+- Vercel: [Weather Planner 바로가기](https://weather-planner-one.vercel.app/)
+
+## 실행 화면
+
+### 1. 메인 날씨 대시보드
+
+![현재 위치 날씨와 활동 추천을 제공하는 메인 대시보드](docs/screenshots/01-main-dashboard.png)
+
+현재 위치의 기온, 체감온도, 습도, 강수량과 시간대별 예보를 표시하고, 날씨 조건을 분석한 맞춤 활동을 추천합니다.
+
+### 2. 달력과 오늘의 일정 레이어
+
+![대한민국 현재 날짜와 오늘 일정을 관리하는 달력 레이어](docs/screenshots/02-main-calendar-sidebar.png)
+
+메인 화면 오른쪽에서 대한민국 현재 날짜를 확인하고, 선택한 날짜의 일정을 조회하거나 새로운 일정을 추가할 수 있습니다.
+
+### 3. 추천 활동과 일정 연동
+
+![추천 활동이 오늘 일정에 반영된 메인 대시보드](docs/screenshots/03-main-schedule-linked.png)
+
+추천 활동 카드를 선택하면 추천 시간이 그대로 오늘 일정에 등록되며, 메인 대시보드의 스케줄 카드에 즉시 반영됩니다.
+
+### 4. 전국 주요 지역 날씨
+
+![전국 주요 도시의 날씨를 비교하는 모든 지역 날씨 페이지](docs/screenshots/04-regions-weather.png)
+
+전국 18개 도시의 날씨, 온도, 습도, 강수량과 풍속을 카드로 비교하고 지역명이나 날씨 상태로 검색할 수 있습니다.
+
+### 5. 지역별 상세 날씨
+
+![강릉의 상세 날씨와 생활 지표 화면](docs/screenshots/05-weather-detail-rain-overview.png)
+
+선택한 지역의 기온, 기상 상태, 습도와 풍속을 확인하고, 해당 날씨에 적합한 활동·대기질·불쾌지수를 함께 제공합니다.
+
+### 6. 비 오는 날씨 애니메이션
+
+![비가 내리는 움직이는 지역 상세 날씨 배경](docs/screenshots/06-weather-detail-rain-animation.png)
+
+비가 오는 지역에서는 실제 날씨 사진 위에 Canvas 기반 빗방울과 바닥 물결 효과를 합성해 현재 기상 상태를 직관적으로 표현합니다.
+
+### 7. 날씨 기반 내 스케줄
+
+![날씨 정보와 추천 활동을 제공하는 일정 관리 페이지](docs/screenshots/07-schedule-overview.png)
+
+관리할 날짜를 선택해 일정을 직접 추가·삭제할 수 있으며, 현재 날씨에 맞는 추천 활동을 버튼 한 번으로 일정에 등록할 수 있습니다.
+
+### 8. 시간대별 날씨와 일정 계획
+
+![시간대별 예보가 포함된 스케줄 페이지 하단](docs/screenshots/08-schedule-hourly-weather.png)
+
+선택 날짜의 일정과 추천 활동 아래에서 시간대별 기온 변화와 날씨 아이콘을 확인해 하루 계획에 활용할 수 있습니다.
+
+### 9. 서비스 소개
+
+![Weather Planner의 주요 기능을 안내하는 서비스 소개 페이지](docs/screenshots/09-service-about.png)
+
+현재 위치 날씨, 전국 지역별 날씨, 맞춤 활동 추천, 일정 관리와 움직이는 날씨 화면 등 서비스의 주요 기능을 안내합니다.
+
+> 실행 화면 이미지는 프로젝트의 `docs/screenshots/` 디렉터리에서 관리합니다.
+
 ## 주요 기능
 
 ### 1. 현재 위치 실시간 날씨
@@ -249,3 +311,15 @@ npm run preview
 날씨 데이터와 날씨 아이콘은 OpenWeatherMap API를 사용합니다.
 
 대기질 데이터는 Open-Meteo Air Quality API와 Copernicus Atmosphere Monitoring Service(CAMS) 자료를 사용합니다.
+
+## 제출 전 확인사항
+
+- `npm install` 이후 `npm run dev`로 정상 실행되는지 확인
+- `.env.example`을 참고해 `VITE_OPENWEATHER_API_KEY`를 설정했는지 확인
+- `npm run check` 결과가 0 warnings, 0 errors인지 확인
+- `npm run build`가 정상적으로 완료되는지 확인
+- README에 실행 화면 이미지가 정상적으로 표시되는지 확인
+- README에 실제 Vercel 배포 주소가 작성되어 있는지 확인
+- Vercel의 메인 페이지와 하위 Route 새로고침이 정상 동작하는지 확인
+- 제출 ZIP에서 `node_modules`, `dist`, `.git`, `.env.local`을 제외했는지 확인
+- 제출 파일명을 `울산4반_Vue_4일차_종합실습제출_한유진.zip`으로 작성했는지 확인
