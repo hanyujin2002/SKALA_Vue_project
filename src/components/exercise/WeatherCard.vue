@@ -1,0 +1,75 @@
+<script setup>
+import DustBadge from './DustBadge.vue'
+
+// 1. 상위로부터 단방향 주입받을 객체 데이터 규격 검수 (매크로)
+const props = defineProps({
+  cityItem: {
+    type: Object,
+    required: true,
+  },
+})
+
+// 2. 상위로 송신할 두 가지 경로의 커스텀 이벤트 식별자 등록 (매크로)
+const emit = defineEmits(['select-card', 'click-detail'])
+
+import { computed } from 'vue'
+import { useConfigStore } from '@/stores/configStore'
+
+const configStore = useConfigStore()
+
+const displayTemp = computed(() => {
+  const rawTemp = props.cityItem.temp // 기본 원본 데이터는 섭씨 숫자
+  if (configStore.unit === 'fahrenheit') {
+    return Math.round((rawTemp * 9) / 5 + 32) // 화씨 변환 연산
+  }
+  return rawTemp // 'celsius'일 때는 원본 그대로 반환
+})
+</script>
+
+<template>
+  <div class="weather-card" @click="emit('select-card', `${cityItem.name}이 선택되었습니다.`)">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <h4>{{ cityItem.name }} ({{ cityItem.status }})</h4>
+      <img v-if="cityItem.icon" :src="cityItem.icon" alt="icon" style="width: 40px; height: 40px;" />
+    </div>
+    <p>현재 기온: {{ displayTemp }}{{ configStore.unitSymbol }}</p>
+
+    <span v-if="cityItem.temp >= 25" class="badge hot">🔥 더움</span>
+    <span v-else class="badge cool">❄️ 선선함</span>
+    <DustBadge :dust="cityItem.dust" />
+
+    <button class="btn-detail" @click.stop="emit('click-detail', cityItem.name, cityItem.status)">상세보기</button>
+  </div>
+</template>
+
+<style scoped>
+.weather-card {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+}
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  color: #fff;
+}
+.hot {
+  background-color: #ff7675;
+}
+.cool {
+  background-color: #74b9ff;
+}
+.btn-detail {
+  position: absolute;
+  right: 12px;
+  top: 15px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+</style>

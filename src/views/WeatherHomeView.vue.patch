@@ -1,0 +1,43 @@
+--- src/views/WeatherHomeView.vue
++++ src/views/WeatherHomeView.vue
+@@ -73,6 +73,43 @@
+   return 'Great'
+ })
+ 
++const recommendedActivities = computed(() => {
++  if (!currentLocation.value) return []
++  const temp = currentLocation.value.temp
++  const status = (currentLocation.value.status || '').toLowerCase()
++  
++  let activities = []
++  if (status.includes('비') || status.includes('rain')) {
++    activities = [
++      { title: '실내 독서', time: '오후 2시 - 4시', score: '추천 지수 90%', type: '추천', icon: '📚' },
++      { title: '홈 트레이닝', time: '오후 6시 - 7시', score: '추천 지수 85%', type: '추천', icon: '🧘' },
++      { title: '실내 카페 투어', time: '오후 1시 - 3시', score: '추천 지수 80%', type: '추천', icon: '☕' }
++    ]
++  } else if (temp > 30) {
++    activities = [
++      { title: '실내 수영', time: '오전 10시 - 12시', score: '추천 지수 95%', type: '추천', icon: '🏊' },
++      { title: '에어컨 아래 휴식', time: '오후 2시 - 5시', score: '추천 지수 90%', type: '추천', icon: '❄️' },
++      { title: '야외 활동 자제', time: '오후 12시 - 3시', score: '추천 지수 20%', type: '주의', icon: '⚠️' }
++    ]
++  } else {
++    activities = [
++      { title: '조깅 / 러닝', time: '오전 6시 - 9시', score: '추천 지수 90%', type: '추천', icon: '🏃' },
++      { title: '자전거 타기', time: '오전 9시 - 11시', score: '추천 지수 85%', type: '추천', icon: '🚴' },
++      { title: '야외 사진 촬영', time: '오후 3시 - 6시', score: '추천 지수 60%', type: '보통', icon: '📷' },
++      { title: '피크닉', time: '오후 12시 - 3시', score: '추천 지수 80%', type: '추천', icon: '🧺' },
++      { title: '캠핑', time: '오후 3시 이후', score: '추천 지수 30%', type: '주의', icon: '⛺' }
++    ]
++  }
++  return activities
++})
++
++const mySchedule = computed(() => {
++  return recommendedActivities.value.filter(a => a.type === '추천' || a.type === '보통').slice(0, 4)
++})
++
+ const hourlyForecast = ref((() => {
+   const currentHour = new Date().getHours()
+   const mockData = []
